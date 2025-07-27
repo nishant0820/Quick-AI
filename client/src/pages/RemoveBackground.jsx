@@ -1,4 +1,4 @@
-import { Eraser, Hash, Sparkles } from 'lucide-react'
+import { Eraser, Sparkles } from 'lucide-react'
 import React, { useState } from 'react'
 
 const RemoveBackground = () => {
