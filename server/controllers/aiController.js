@@ -1,5 +1,6 @@
 import { clerkClient } from "@clerk/express";
 import OpenAI from "openai";
+import sql from "../configs/db.js";
 
 const AI = new OpenAI({
     apiKey: process.env.GEMINI_API_KEY,
