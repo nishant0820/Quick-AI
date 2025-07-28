@@ -4,6 +4,9 @@
 /node_modules
 /.pnp
 .pnp.js
+/client/node_modules
+/server/node_modules
+**/node_modules
 
 # testing
 /coverage
@@ -27,6 +30,9 @@ yarn-error.log*
 # local env files
 .env*.local
 .env
+/client/.env.local
+/server/.env
+/server/.env.local
 
 # vercel
 .vercel
@@ -34,3 +40,22 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# server specific
+/server/uploads
+/server/logs
+*.log
+
+# database
+*.db
+*.sqlite
+*.sqlite3
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
