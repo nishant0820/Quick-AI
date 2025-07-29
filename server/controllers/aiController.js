@@ -3,6 +3,7 @@ import OpenAI from "openai";
 import sql from "../configs/db.js";
 import axios from "axios";
 import {v2 as cloudinary} from 'cloudinary';
+import FormData from 'form-data';
 
 const AI = new OpenAI({
     apiKey: process.env.GEMINI_API_KEY,
@@ -105,16 +106,13 @@ export const generateImage = async (req, res) => {
             return res.json({ success: false, message: "This feature is only available for premium subscriptions." })
         }
 
-        const formData = new FormData()
-        formData.append('prompt', prompt)
-        const {data} = await axios.post('https://clipdrop-api.co/text-to-image/v1', formData, {
-            headers: {
-                'x-api-key': process.env.CLIPDROP_API_KEY,
-            },
-            responseType: 'arraybuffer',
+        const imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=1024&height=1024&nologo=true`
+        
+        const response = await axios.get(imageUrl, {
+            responseType: 'arraybuffer'
         })
-
-        const base64Image = `data:image/png;base64,${Buffer.from(data, 'binary').toString('base64')}`;
+        
+        const base64Image = `data:image/png;base64,${Buffer.from(response.data, 'binary').toString('base64')}`;
 
         const {secure_url} = await cloudinary.uploader.upload(base64Image)
 
