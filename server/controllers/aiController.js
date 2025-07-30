@@ -3,7 +3,6 @@ import OpenAI from "openai";
 import sql from "../configs/db.js";
 import axios from "axios";
 import {v2 as cloudinary} from 'cloudinary';
-import FormData from 'form-data';
 
 const AI = new OpenAI({
     apiKey: process.env.GEMINI_API_KEY,
