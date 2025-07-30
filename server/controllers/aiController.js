@@ -131,13 +131,17 @@ export const generateImage = async (req, res) => {
 export const removeImageBackground = async (req, res) => {
     try {
         const {userId} = req.auth()
-        const { image } = req.file
         const plan = req.plan
 
         if(plan !== 'premium'){
             return res.json({ success: false, message: "This feature is only available for premium subscriptions." })
         }
-        const {secure_url} = await cloudinary.uploader.upload(image.path, {
+
+        if (!req.file) {
+            return res.json({ success: false, message: "No image file uploaded." })
+        }
+
+        const {secure_url} = await cloudinary.uploader.upload(req.file.path, {
             transformation: [
                 {
                     effect: "background_removal",
