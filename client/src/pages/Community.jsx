@@ -1,6 +1,5 @@
 import { useUser } from '@clerk/clerk-react'
 import React, { useEffect, useState } from 'react'
-import { dummyPublishedCreationData } from '../assets/assets'
 import { Heart } from 'lucide-react'
 import toast from "react-hot-toast";
 import axios from "axios";
@@ -12,13 +11,12 @@ const Community = () => {
 
   const [creations, setCreations] = useState([])
   const {user} = useUser()
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const { getToken } = useAuth();
 
   const fetchCreations = async () => {
     try {
-      setLoading(true);
       const { data } = await axios.get(
         "/api/user/get-published-creations",
         {
